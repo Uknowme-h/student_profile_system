@@ -12,7 +12,7 @@ def main():
                 admin_panel()
                 break
             else:
-                student_panel(user)
+                student_panel(user,pwd)
                 break
         else:
             print("Access denied! Try again !")
