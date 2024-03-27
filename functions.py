@@ -32,7 +32,8 @@ def admin_panel():
 2: Remove a student
 3: View all users
 4: Add an admin
-5: Exit
+5: Change password
+6: Exit
 Enter your choice:- """)
     if choice == "1":
         add_student()
@@ -43,6 +44,10 @@ Enter your choice:- """)
     elif choice == "4":
         add_admin()
     elif choice == "5":
+        user = input("Username:- ")
+        pwd = input("\nPassword:- ")
+        change_admin_password(user,pwd)
+    elif choice == "6":
         exit()
     else:
         print("Invalid choice")
@@ -161,6 +166,20 @@ def view_students():
         print(f"User: {user}, Role: {role}")
     admin_panel()
      
+def change_admin_password(user,pwd):
+    """This function changes the password of an admin."""
+    print("Changing password")
+    password_data = load_data('passwords.txt')
+    new_password = input("New password:- ")
+    for key, value in password_data.items():
+        if user == value["user"] and pwd == password_data[key]["password"]:
+            password_data[key]["password"] = new_password
+            with open('passwords.txt', 'w') as file:
+                json.dump(password_data, file)
+            print("Password changed successfully")
+            time.sleep(1)
+            admin_panel()  
+
 
 def exit():
     """This function exits the program."""
